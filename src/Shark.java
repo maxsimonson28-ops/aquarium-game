@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Shark {
     public String name;                //holds the name of the hero
     public int xpos;                //the x position
@@ -6,7 +8,9 @@ public class Shark {
     public int dy;                    //the speed of the hero in the y direction
     public int width;
     public int height;
-    public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
+    public boolean isAlive;
+    public Rectangle hitbox;
+    public boolean isCrashing;  //this boolean is for are the characters hitting or not
 
 
     // METHOD DEFINITION SECTION
@@ -25,6 +29,8 @@ public class Shark {
         width = 60;
         height = 60;
         isAlive = true;
+        hitbox = new Rectangle(xpos,ypos,width,height);
+        isCrashing = false;
 
     } // constructor
 
@@ -39,11 +45,12 @@ public class Shark {
         if (ypos >= 700 - width) {
             dy = -dy;
         }
-        if (ypos <= 0) {
+        if (ypos <= 0) {  //these if statements make the shark bounce off the walls
             dy = -dy;
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
+        hitbox = new Rectangle(xpos,ypos,width,height);
 
     }
 }

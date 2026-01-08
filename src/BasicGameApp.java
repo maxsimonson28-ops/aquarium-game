@@ -97,15 +97,32 @@ public class BasicGameApp implements Runnable {
 	}
 
 
-	public void moveThings()
-	{
+	public void moveThings() {
       //calls the move( ) code in the objects
 		bass.move();
         shark.move();
         orca.move();
 
 	}
-	
+
+
+    public void crashing() {
+        if (bass.hitbox.intersects(shark.hitbox)) {
+            System.out.println("CRASH!!!!");
+            bass.dy = -shark.dy;
+            bass.isAlive = false;
+        }
+        if (shark.hitbox.intersects(orca.hitbox)) {
+            System.out.println("CRASH!!!!");
+            shark.dy = -orca.dy;
+            shark.isAlive = false;
+
+        }
+
+        }
+
+
+
    //Pauses or sleeps the computer for the amount specified in milliseconds
    public void pause(int time ){
    		//sleep

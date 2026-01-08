@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Orca {
     public String name;                //holds the name of the hero
     public int xpos;                //the x position
@@ -7,6 +9,8 @@ public class Orca {
     public int width;
     public int height;
     public boolean isAlive;
+    public Rectangle hitbox;
+    public boolean isCrashing;  //this boolean is for are the characters hitting or not
 
     public Orca(int pXpos, int pYpos) {
         xpos = pXpos;
@@ -16,6 +20,8 @@ public class Orca {
         width = 60;
         height = 60;
         isAlive = true;
+        hitbox = new Rectangle(xpos,ypos,width,height);
+        isCrashing = false;
 
     } // constructor
 
@@ -30,12 +36,13 @@ public class Orca {
         if (ypos >= 700 - width) {
             dy = -dy;
         }
-        if (ypos <= 0) {
+        if (ypos <= 0) {            //these if statements make the orca bounce off the walls
             dy = -dy;
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
         xpos = xpos + dx;
         ypos = ypos + dy;
+        hitbox = new Rectangle(xpos,ypos,width,height);
     }
 }

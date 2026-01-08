@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * Created by chales on 11/6/2017.
  */
@@ -12,7 +14,9 @@ public class Fish {
     public int dy;                    //the speed of the hero in the y direction
     public int width;
     public int height;
-    public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
+    public boolean isAlive;
+    public Rectangle hitbox;
+    public boolean isCrashing;  //this boolean is for are the characters hitting or not
 
 
     // METHOD DEFINITION SECTION
@@ -31,6 +35,8 @@ public class Fish {
         width = 60;
         height = 60;
         isAlive = true;
+        hitbox = new Rectangle(xpos,ypos,width,height);
+        isCrashing = false;
  
     } // constructor
 
@@ -39,11 +45,12 @@ public class Fish {
         if(xpos>1000){
             xpos = 1;
         }
-        if(ypos>700){
+        if(ypos>700){  //these if statements make the fish wrap around the walls
             ypos = 1;
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
+        hitbox = new Rectangle(xpos,ypos,width,height);
  
     }
 }
