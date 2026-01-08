@@ -41,6 +41,7 @@ public class BasicGameApp implements Runnable {
 	public Image bassPic;
     public Image sharkPic;
     public Image orcaPic;
+    public Image backgroundPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -64,15 +65,21 @@ public class BasicGameApp implements Runnable {
 	public BasicGameApp() {
       
       setUpGraphics();
+        int randx = (int)(Math.random()*10)+1;
+        int randy = (int)(Math.random()*10)+1;
+
+        randx = (int)(Math.random()*999)+1;
+        randy = (int)(Math.random()*699)+1;
        
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		bassPic = Toolkit.getDefaultToolkit().getImage("fishpic.png");
         sharkPic = Toolkit.getDefaultToolkit().getImage("sharkpic.png");
         orcaPic = Toolkit.getDefaultToolkit().getImage("Orca.jpg");
-		bass = new Fish(10,100);
-        shark = new Shark(100,329);
-        orca = new Orca(23,43);
+        backgroundPic = Toolkit.getDefaultToolkit().getImage("deeepaOcean.jpeg");
+		bass = new Fish(randx,134);
+        shark = new Shark(randx,randy);
+        orca = new Orca(23,randy);
 
 
 	}// BasicGameApp()
@@ -102,18 +109,19 @@ public class BasicGameApp implements Runnable {
 		bass.move();
         shark.move();
         orca.move();
+        crashing();
 
 	}
 
 
     public void crashing() {
         if (bass.hitbox.intersects(shark.hitbox)) {
-            System.out.println("CRASH!!!!");
+            System.out.println("YUM Fish!!!!"); //this is printed everytime the shark eats the fish
             bass.dy = -shark.dy;
             bass.isAlive = false;
         }
         if (shark.hitbox.intersects(orca.hitbox)) {
-            System.out.println("CRASH!!!!");
+            System.out.println("Yum Shark!!!!"); //this is printed every time the orca eats the shark
             shark.dy = -orca.dy;
             shark.isAlive = false;
 
@@ -168,12 +176,16 @@ public class BasicGameApp implements Runnable {
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
+        g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null);
 
       //draw the image of the astronaut
-		g.drawImage(bassPic, bass.xpos, bass.ypos, bass.width, bass.height, null);
-        g.drawImage(sharkPic, shark.xpos, shark.ypos, shark.width, shark.height, null);
+        if(bass.isAlive == true){
+		g.drawImage(bassPic, bass.xpos, bass.ypos, bass.width, bass.height, null);}
+        if(shark.isAlive == true){
+        g.drawImage(sharkPic, shark.xpos, shark.ypos, shark.width, shark.height, null);}
         g.drawImage(orcaPic, orca.xpos, orca.ypos, orca.width, orca.height, null);
 		g.dispose();
+
 
 		bufferStrategy.show();
 	}
