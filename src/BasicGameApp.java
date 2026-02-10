@@ -41,6 +41,7 @@ public class BasicGameApp implements Runnable {
 	public Image bassPic;
     public Image sharkPic;
     public Image orcaPic;
+    public Image orcasWinPic;
     public Image backgroundPic;
 
    //Declare the objects used in the program
@@ -48,6 +49,7 @@ public class BasicGameApp implements Runnable {
 	private Fish bass;
     private Shark shark;
     private Orca orca;
+    private OrcasWin orcasWin;
 
 
    // Main method definition
@@ -76,10 +78,13 @@ public class BasicGameApp implements Runnable {
 		bassPic = Toolkit.getDefaultToolkit().getImage("fishpic.png");
         sharkPic = Toolkit.getDefaultToolkit().getImage("sharkpic.png");
         orcaPic = Toolkit.getDefaultToolkit().getImage("Orca.jpg");
+        orcasWinPic = Toolkit.getDefaultToolkit().getImage("OrcasWin.png");
+
         backgroundPic = Toolkit.getDefaultToolkit().getImage("deeepaOcean.jpeg");
 		bass = new Fish(randx,134);
         shark = new Shark(randx,randy);
         orca = new Orca(23,randy);
+        orcasWin = new OrcasWin(100,50);//this is what position the win screen will be
 
 
 	}// BasicGameApp()
@@ -125,6 +130,10 @@ public class BasicGameApp implements Runnable {
             shark.dy = -orca.dy;
             shark.isAlive = false;
 
+        }
+
+        if (shark.isAlive == false){
+            orcasWin.isAlive = true;
         }
 
         }
@@ -184,6 +193,9 @@ public class BasicGameApp implements Runnable {
         if(shark.isAlive == true){
         g.drawImage(sharkPic, shark.xpos, shark.ypos, shark.width, shark.height, null);}
         g.drawImage(orcaPic, orca.xpos, orca.ypos, orca.width, orca.height, null);
+        if(orcasWin.isAlive == true){
+        g.drawImage(orcasWinPic, orcasWin.xpos, orcasWin.ypos, orcasWin.width, orcasWin.height, null);}
+
 		g.dispose();
 
 
