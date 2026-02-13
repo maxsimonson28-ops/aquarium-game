@@ -22,6 +22,7 @@ public class Orca {
         isAlive = true;
         hitbox = new Rectangle(xpos,ypos,width,height);
         isCrashing = false;
+        //these set my instance variables
 
     } // constructor
 

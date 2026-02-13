@@ -40,6 +40,7 @@ public class BasicGameApp implements Runnable {
 	public BufferStrategy bufferStrategy;
 	public Image bassPic;
     public Image sharkPic;
+    public Image trashPic;
     public Image orcaPic;
     public Image orcasWinPic;
     public Image backgroundPic;
@@ -48,6 +49,7 @@ public class BasicGameApp implements Runnable {
    //These are things that are made up of more than one variable type
 	private Fish bass;
     private Shark shark;
+    private Trash trash;
     private Orca orca;
     private OrcasWin orcasWin;
 
@@ -77,12 +79,15 @@ public class BasicGameApp implements Runnable {
       //create (construct) the objects needed for the game and load up 
 		bassPic = Toolkit.getDefaultToolkit().getImage("fishpic.png");
         sharkPic = Toolkit.getDefaultToolkit().getImage("sharkpic.png");
+        trashPic = Toolkit.getDefaultToolkit().getImage("trash.jpeg");
         orcaPic = Toolkit.getDefaultToolkit().getImage("Orca.jpg");
         orcasWinPic = Toolkit.getDefaultToolkit().getImage("OrcasWin.png");
+
 
         backgroundPic = Toolkit.getDefaultToolkit().getImage("deeepaOcean.jpeg");
 		bass = new Fish(randx,134);
         shark = new Shark(randx,randy);
+        trash = new Trash(randx,randy);
         orca = new Orca(23,randy);
         orcasWin = new OrcasWin(100,50);//this is what position the win screen will be
 
@@ -113,6 +118,7 @@ public class BasicGameApp implements Runnable {
       //calls the move( ) code in the objects
 		bass.move();
         shark.move();
+        trash.move();
         orca.move();
         crashing();
 
@@ -123,16 +129,37 @@ public class BasicGameApp implements Runnable {
         if (bass.hitbox.intersects(shark.hitbox)) {
             System.out.println("YUM Fish!!!!"); //this is printed everytime the shark eats the fish
             bass.dy = -shark.dy;
-            bass.isAlive = false;
+            bass.isAlive = false; //the bass dissappears when its eaten by the shark
+            shark.dx = shark.dx + 5; //the shark speeds up after eating the fish
+        }
+        if(orca.hitbox.intersects(bass.hitbox)){
+            bass.isAlive = false; //the bass dissappears when its eaten by the orca
+            orca.dx = 2;
+        }
+        if(bass.hitbox.intersects(trash.hitbox)){ //when the fish eats the trash
+            System.out.println("Ew");//this prints everytime the bass eats the trash
+            bass.dy = 3;
+
+        }
+        if(shark.hitbox.intersects(trash.hitbox)){//when the shark eats the trash
+            System.out.println("Ew");//this prints everytime the shark eats the trash
+            shark.dx = 2;//this makes the shark slower when it eats the trash
+
+        }
+        if(orca.hitbox.intersects(trash.hitbox)){ //when the orca hits the trash
+            System.out.println("Ew");//this prints everytime the orca eats the trash
+            orca.dy = 2;
+            orca.dx = 1;//these make the orca slower after eating the trash
+
         }
         if (shark.hitbox.intersects(orca.hitbox)) {
             System.out.println("Yum Shark!!!!"); //this is printed every time the orca eats the shark
             shark.dy = -orca.dy;
-            shark.isAlive = false;
+            shark.isAlive = false; //the sjark dissappears when the orca hits it
 
         }
 
-        if (shark.isAlive == false){
+        if (shark.isAlive == false){ //when the shark is dead the Win Screen shows
             orcasWin.isAlive = true;
         }
 
@@ -185,16 +212,19 @@ public class BasicGameApp implements Runnable {
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
-        g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null);
+        g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null); //shows background pic
 
-      //draw the image of the astronaut
+      //these make the characters show up on screen
         if(bass.isAlive == true){
 		g.drawImage(bassPic, bass.xpos, bass.ypos, bass.width, bass.height, null);}
         if(shark.isAlive == true){
         g.drawImage(sharkPic, shark.xpos, shark.ypos, shark.width, shark.height, null);}
+        if(trash.isAlive == true){
+            g.drawImage(trashPic, trash.xpos, trash.ypos, trash.width, trash.height, null);}
         g.drawImage(orcaPic, orca.xpos, orca.ypos, orca.width, orca.height, null);
         if(orcasWin.isAlive == true){
         g.drawImage(orcasWinPic, orcasWin.xpos, orcasWin.ypos, orcasWin.width, orcasWin.height, null);}
+
 
 		g.dispose();
 

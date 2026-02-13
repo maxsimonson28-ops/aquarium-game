@@ -1,12 +1,6 @@
 import java.awt.*;
 
-/**
- * Created by chales on 11/6/2017.
- */
-public class Fish {
-
-    //VARIABLE DECLARATION SECTION
-    //Here's where you state which variables you are going to use.
+public class Trash {
     public String name;                //holds the name of the hero
     public int xpos;                //the x position
     public int ypos;                //the y position
@@ -16,40 +10,43 @@ public class Fish {
     public int height;
     public boolean isAlive;
     public Rectangle hitbox;
-    public boolean isCrashing;  //this boolean is for are the characters hitting or not
+    public boolean isCrashing;
 
-
-
-    public Fish(int pXpos, int pYpos) {
+    public Trash(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx =4;
-        dy =7;
+        dx =0;
+        dy =10;
         width = 60;
         height = 60;
         isAlive = true;
         hitbox = new Rectangle(xpos,ypos,width,height);
         isCrashing = false;
         //these set my instance variables
-    } // constructor
+    }
 
-    //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
-        if(xpos>1000){
-            xpos = 1;
+        if (xpos >= 1000 - width) {
+            dx = -dx;
         }
-        if(ypos>700){  //these if statements make the fish wrap around the walls
-            ypos = 1;
+        if (xpos <= 0) {
+            dx = -dx;
+        }
+        if (ypos >= 700 - width) {
+            dy = -dy;
+        }
+        if (ypos <= 0) {  //these if statements make the trash bounce off the walls
+            dy = -dy;
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
         hitbox = new Rectangle(xpos,ypos,width,height);
- 
+
     }
+
+
+
+
+
 }
-
-
-
-
-
 

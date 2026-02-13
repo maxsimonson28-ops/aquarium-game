@@ -13,14 +13,10 @@ public class Shark {
     public boolean isCrashing;  //this boolean is for are the characters hitting or not
 
 
-    // METHOD DEFINITION SECTION
-
-    // Constructor Definition
-    // A constructor builds the object when called and sets variable values.
 
 
-    //This is a SECOND constructor that takes 3 parameters.  This allows us to specify the hero's name and position when we build it.
-    // if you put in a String, an int and an int the program will use this constructor instead of the one above.
+
+
     public Shark(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
@@ -31,7 +27,7 @@ public class Shark {
         isAlive = true;
         hitbox = new Rectangle(xpos,ypos,width,height);
         isCrashing = false;
-
+        //these set my instance variables
     } // constructor
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy

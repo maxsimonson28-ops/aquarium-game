@@ -31,7 +31,7 @@ public class OrcasWin { //this is for the WIN SCREEN
             ypos = pYpos;
             dx =0;
             dy =0;
-            width = 800;
+            width = 800;  // these make the winscreen big
             height = 800;
             isAlive = false;
             hitbox = new Rectangle(xpos,ypos,width,height);
@@ -44,7 +44,7 @@ public class OrcasWin { //this is for the WIN SCREEN
             if(xpos>1000){
                 xpos = 1;
             }
-            if(ypos>700){  //these if statements make the fish wrap around the walls
+            if(ypos>700){
                 ypos = 1;
             }
             xpos = xpos + dx;
